@@ -98,11 +98,10 @@ namespace QPH_MAIN.Channel.Controllers
         /// </summary>
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> Put(int id, ChannelDto channelDto)
+        public async Task<IActionResult> Put([FromBody]ChannelDto channelDto)
         {
             if (!User.Identity.IsAuthenticated) throw new AuthenticationException();
             var channel = _mapper.Map<Chanel>(channelDto);
-            channel.Id = id;
             var result = await _channelService.UpdateChannel(channel);
             var response = new ApiResponse<bool>(result);
             return Ok(response);

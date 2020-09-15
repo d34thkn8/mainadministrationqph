@@ -23,7 +23,7 @@ namespace QPH_MAIN.Infrastructure.Data.Configurations
             builder.Property(e => e.Enlace)
                 .IsRequired()
                 .HasColumnName("enlace");
-
+            
             builder.Property(e => e.Segmento)
                 .IsRequired()
                 .HasColumnName("segmento");

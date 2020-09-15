@@ -5,6 +5,7 @@ using QPH_MAIN.Core.Entities;
 using QPH_MAIN.Core.Exceptions;
 using QPH_MAIN.Core.Interfaces;
 using QPH_MAIN.Core.QueryFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -147,30 +148,40 @@ namespace QPH_MAIN.Core.Services
 
         public async Task<bool> UpdateChannel(Chanel Channel)
         {
-            var existingChannel = await _unitOfWork.ChannelRepository.GetById(Channel.Id);
-            existingChannel.VendorSeccion = Channel.VendorSeccion;
-            existingChannel.Uge = Channel.Uge;
-            existingChannel.Status = Channel.Status;
-            existingChannel.Segmento = Channel.Segmento;
-            existingChannel.Relacionado = Channel.Relacionado;
-            existingChannel.PuntoEmision = Channel.PuntoEmision;
-            existingChannel.NombreProducto = Channel.NombreProducto;
-            existingChannel.ListaPrecioCredito = Channel.ListaPrecioCredito;
-            existingChannel.ListaPrecioContado = Channel.ListaPrecioContado;
-            existingChannel.LimiteCredito = Channel.LimiteCredito;
-            existingChannel.Iva = Channel.Iva;
-            existingChannel.GrupoCredito = Channel.GrupoCredito;
-            existingChannel.FormaPago = Channel.FormaPago;
-            existingChannel.Fecha = Channel.Fecha;
-            existingChannel.DocumentoElectronico = Channel.DocumentoElectronico;
-            existingChannel.CuentaContable = Channel.CuentaContable;
-            existingChannel.CodigoProducto = Channel.CodigoProducto;
-            existingChannel.CategoriaCliente = Channel.CategoriaCliente;
-            existingChannel.Bodega = Channel.Bodega;
-            existingChannel.Ambiente = Channel.Ambiente;
-            _unitOfWork.ChannelRepository.Update(existingChannel);
-            await _unitOfWork.SaveChangesAsync();
-            return true;
+            try
+            {
+                var existingChannel = await _unitOfWork.ChannelRepository.GetById(Channel.Id);
+                existingChannel.VendorSeccion = Channel.VendorSeccion;
+                existingChannel.Uge = Channel.Uge;
+                existingChannel.Status = Channel.Status;
+                existingChannel.Segmento = Channel.Segmento;
+                existingChannel.Enlace = Channel.Enlace;
+                existingChannel.Relacionado = Channel.Relacionado;
+                existingChannel.PuntoEmision = Channel.PuntoEmision;
+                existingChannel.NombreProducto = Channel.NombreProducto;
+                existingChannel.ListaPrecioCredito = Channel.ListaPrecioCredito;
+                existingChannel.ListaPrecioContado = Channel.ListaPrecioContado;
+                existingChannel.LimiteCredito = Channel.LimiteCredito;
+                existingChannel.Iva = Channel.Iva;
+                existingChannel.GrupoCredito = Channel.GrupoCredito;
+                existingChannel.FormaPago = Channel.FormaPago;
+                existingChannel.Fecha = Channel.Fecha;
+                existingChannel.DocumentoElectronico = Channel.DocumentoElectronico;
+                existingChannel.CuentaContable = Channel.CuentaContable;
+                existingChannel.CodigoProducto = Channel.CodigoProducto;
+                existingChannel.CategoriaCliente = Channel.CategoriaCliente;
+                existingChannel.Bodega = Channel.Bodega;
+                existingChannel.Ambiente = Channel.Ambiente;
+                _unitOfWork.ChannelRepository.Update(existingChannel);
+                await _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debugger.Break();
+                
+            }
+            return false;
         }
 
         public async Task<bool> DeleteChannel(int id)
