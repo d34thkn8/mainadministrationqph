@@ -6,6 +6,7 @@ namespace QPH_MAIN.Core.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         ICityRepository CityRepository { get; }
+        IBranched_EnterpriseRepository Branched_EnterpriseRepository { get; }
         IBlacklistRepository BlacklistRepository { get; }
         ISystemParametersRepository SystemParametersRepository { get; }
         IRegionRepository RegionRepository { get; }

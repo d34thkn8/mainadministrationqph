@@ -1,4 +1,3 @@
-using AntiXssMiddleware.Middleware;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,7 +17,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace QPH_MAIN.Api
+namespace QPH_MAIN.Channel
 {
     public class Startup
     {
@@ -54,7 +53,7 @@ namespace QPH_MAIN.Api
             services.AddSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API QPH_MAIN", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API QPH_MAIN_CHANNEL", Version = "v1" });
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
             services.AddAuthentication(options =>
@@ -74,7 +73,6 @@ namespace QPH_MAIN.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))
                 };
             });
-
             services.AddMvc(options =>
             {
                 options.Filters.Add<ValidationFilter>();
@@ -91,16 +89,14 @@ namespace QPH_MAIN.Api
             app.UseSwagger();
             app.UseCors("MyPolicy");
             app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "QPH_MAIN API V1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "QPH_MAIN API CHANNEL V1");
                 options.RoutePrefix = string.Empty;
             });
-            app.UseAntiXssMiddleware();
             app.UseExceptionHandler(a => a.Run(async context =>
             {
                 var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                 var exception = exceptionHandlerPathFeature.Error;
-
-                var result = JsonConvert.SerializeObject(new { error = exception.Message});
+                var result = JsonConvert.SerializeObject(new { error = exception.Message });
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(result);
             }));
