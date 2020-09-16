@@ -12,5 +12,6 @@ namespace QPH_MAIN.Core.DTOs
         public string Direction { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
+        public bool Status { get; set; }
     }
 }

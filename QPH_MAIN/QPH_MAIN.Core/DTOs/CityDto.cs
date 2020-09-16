@@ -1,4 +1,6 @@
-﻿namespace QPH_MAIN.Core.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace QPH_MAIN.Core.DTOs
 {
     public class CityDto
     {

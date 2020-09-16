@@ -28,8 +28,8 @@ namespace QPH_MAIN.Api.Controllers
             _uriService = uriService;
         }
 
-        [HttpGet]
-        public IActionResult GetBranched_Enterprise(Branched_EnterpriseQueryFilter filtro)
+        [HttpPost("RetrieveBranchedEnterprises")]
+        public IActionResult GetBranched_Enterprise([FromBody] Branched_EnterpriseQueryFilter filtro)
         {
             var branched = _branched_enterpriseService.GetBranched_Enterprises(filtro);
             var otro = _mapper.Map<IEnumerable<Branched_EnterpriseDto>>(branched);

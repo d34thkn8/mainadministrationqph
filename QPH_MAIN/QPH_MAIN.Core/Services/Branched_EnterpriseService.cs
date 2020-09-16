@@ -36,9 +36,12 @@ namespace QPH_MAIN.Core.Services
         {
             filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
-            var cards = _unitOfWork.Branched_EnterpriseRepository.GetAll();
-            
-            var pagedPosts = PagedList<Branched_enterprise>.Create(cards, filters.PageNumber, filters.PageSize);
+            var branched = _unitOfWork.Branched_EnterpriseRepository.GetAll();
+            if (filters.filter != null)
+            {
+                branched = branched.Where(x => x.Identification.ToLower().Contains(filters.filter.ToLower()));
+            }
+            var pagedPosts = PagedList<Branched_enterprise>.Create(branched, filters.PageNumber, filters.PageSize);
             return pagedPosts;
         }
 

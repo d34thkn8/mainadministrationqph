@@ -23,7 +23,20 @@ namespace QPH_MAIN.Core.Services
             _paginationOptions = options.Value;
         }
 
-        public async Task<Chanel> GetChannel(int id) => await _unitOfWork.ChannelRepository.GetById(id);
+        public async Task<Chanel> GetChannel(int id)
+        {
+            var salida= await _unitOfWork.ChannelRepository.GetById(id);
+            if (salida.isEnabled)
+            {
+                return salida;
+            }
+            else
+            {
+                //Mandar error
+                return null;
+            }
+            
+        }
 
         public PagedList<Chanel> GetChannels(ChannelQueryFilter filters)
         {
@@ -136,12 +149,14 @@ namespace QPH_MAIN.Core.Services
                     Channel = Channel.OrderBy(sortM.PairAsSqlExpression);
                 }
             }
+            Channel = Channel.Where(c => c.isEnabled == true);
             var pagedPosts = PagedList<Chanel>.Create(Channel, filters.PageNumber, filters.PageSize);
             return pagedPosts;
         }
 
         public async Task InsertChannel(Chanel Channel)
         {
+            Channel.isEnabled = true;
             await _unitOfWork.ChannelRepository.Add(Channel);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -186,7 +201,8 @@ namespace QPH_MAIN.Core.Services
 
         public async Task<bool> DeleteChannel(int id)
         {
-            await _unitOfWork.ChannelRepository.Delete(id);
+            var existingChannel = await _unitOfWork.ChannelRepository.GetById(id);
+            existingChannel.isEnabled = false;
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

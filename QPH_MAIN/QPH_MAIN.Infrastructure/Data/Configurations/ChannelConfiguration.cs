@@ -99,6 +99,10 @@ namespace QPH_MAIN.Infrastructure.Data.Configurations
             builder.Property(e => e.Status)
                 .IsRequired()
                 .HasColumnName("status");
+
+            builder.Property(e => e.isEnabled)
+                .IsRequired()
+                .HasColumnName("isEnabled");
         }
     }
 }

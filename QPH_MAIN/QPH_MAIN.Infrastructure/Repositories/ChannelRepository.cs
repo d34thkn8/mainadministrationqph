@@ -12,5 +12,7 @@ namespace QPH_MAIN.Infrastructure.Repositories
     public class ChannelRepository : BaseChannelRepository<Chanel>, IChannelRepository
     {
         public ChannelRepository(QPHChannelContext context) : base(context) { }
+
+        
     }
 }

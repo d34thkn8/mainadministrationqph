@@ -86,6 +86,10 @@ namespace QPH_MAIN.Channel.Controllers
         public async Task<IActionResult> Post([FromBody] ChannelDto channelDto)
         {
             if (!User.Identity.IsAuthenticated) throw new AuthenticationException();
+            if (!ModelState.IsValid)
+            {
+                return Ok("faltan campos");
+            }
             var channel = _mapper.Map<Chanel>(channelDto);
             await _channelService.InsertChannel(channel);
             channelDto = _mapper.Map<ChannelDto>(channel);
@@ -101,6 +105,10 @@ namespace QPH_MAIN.Channel.Controllers
         public async Task<IActionResult> Put([FromBody]ChannelDto channelDto)
         {
             if (!User.Identity.IsAuthenticated) throw new AuthenticationException();
+            if (!ModelState.IsValid)
+            {
+                return Ok("faltan campos");
+            }
             var channel = _mapper.Map<Chanel>(channelDto);
             var result = await _channelService.UpdateChannel(channel);
             var response = new ApiResponse<bool>(result);

@@ -14,6 +14,8 @@ namespace QPH_MAIN.Infrastructure.Mappings
             CreateMap<SystemParameters, SystemParametersDto>();
             CreateMap<Region, RegionDto>();
             CreateMap<RegionDto, Region>();
+            CreateMap<Branched_enterprise, Branched_EnterpriseDto>();
+            CreateMap<Branched_EnterpriseDto, Branched_enterprise>();
             CreateMap<Country, CountryDto>();
             CreateMap<CountryDto, Country>();
             CreateMap<Roles, RolesDto>();

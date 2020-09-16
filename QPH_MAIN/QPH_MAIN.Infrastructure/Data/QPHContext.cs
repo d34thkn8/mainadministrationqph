@@ -10,6 +10,7 @@ namespace QPH_MAIN.Infrastructure.Data
 
         public QPHContext(DbContextOptions<QPHContext> options) : base(options) {}
         public virtual DbSet<City> City { get; set; }
+        public virtual DbSet<Branched_enterprise> Branched_Enterprises { get; set; }
         public virtual DbSet<SystemParameters> SystemParameters { get; set; }
         public virtual DbSet<TableColumn> TableColumn { get; set; }
         public virtual DbSet<Views> Views { get; set; }

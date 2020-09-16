@@ -11,6 +11,7 @@ namespace QPH_MAIN.Core.Entities
         public string Enlace { get; set; }
         public string PuntoEmision { get; set; }
         public string Ambiente { get; set; }
+        public bool isEnabled { get; set; }
         public double Iva { get; set; }
         public string CodigoProducto { get; set; }
         public string NombreProducto { get; set; }
